@@ -4929,7 +4929,8 @@ class Benchmark {
     return key_rand;
   }
 
-  void QuicksandGap(ThreadState* thread, std::vector<int>& marked_entries) {
+  void QuicksandGap(ThreadState* /*thread*/,
+                    std::vector<int>& /*marked_entries*/) {
     // do the requesting, and search through all the SSTs with occurrences.
   }
 
