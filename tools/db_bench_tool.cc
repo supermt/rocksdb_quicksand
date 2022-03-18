@@ -2787,7 +2787,7 @@ class Benchmark {
         fresh_db = true;
         method = &Benchmark::YCSBLoader;
       } else if (name == "ycsb_run") {
-        fresh_db = true;
+        fresh_db = false;
         method = &Benchmark::YCSBRunner;
       } else if (name == "overwrite") {
         method = &Benchmark::WriteRandom;
