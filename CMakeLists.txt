@@ -628,7 +628,8 @@ set(SOURCES
         tools/sst_dump_tool.cc
         tools/trace_analyzer_tool.cc
         trace_replay/trace_replay.cc
-        trace_replay/block_cache_tracer.cc        ycsbcore/acknowledged_counter_generator.cc
+        trace_replay/block_cache_tracer.cc
+        ycsbcore/acknowledged_counter_generator.cc
         ycsbcore/basic_db.cc
         ycsbcore/core_workload.cc
         ycsbcore/db_factory.cc

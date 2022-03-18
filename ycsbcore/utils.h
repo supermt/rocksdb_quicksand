@@ -42,6 +42,12 @@ inline uint32_t ThreadLocalRandomInt() {
   return rn();
 }
 
+inline long ThreadLocalRandomLong() {
+  static thread_local std::random_device rd;
+  static thread_local std::minstd_rand rn(rd());
+  return rn();
+}
+
 inline double ThreadLocalRandomDouble(double min = 0.0, double max = 1.0) {
   static thread_local std::random_device rd;
   static thread_local std::minstd_rand rn(rd());
@@ -52,16 +58,13 @@ inline double ThreadLocalRandomDouble(double min = 0.0, double max = 1.0) {
 ///
 /// Returns an ASCII code that can be printed to desplay
 ///
-inline char RandomPrintChar() {
-  return rand() % 94 + 33;
-}
+inline char RandomPrintChar() { return rand() % 94 + 33; }
 
 class Exception : public std::exception {
  public:
-  Exception(const std::string &message) : message_(message) { }
-  const char* what() const noexcept {
-    return message_.c_str();
-  }
+  Exception(const std::string &message) : message_(message) {}
+  const char *what() const noexcept { return message_.c_str(); }
+
  private:
   std::string message_;
 };
@@ -78,13 +81,17 @@ inline bool StrToBool(std::string str) {
 }
 
 inline std::string Trim(const std::string &str) {
-  auto front = std::find_if_not(str.begin(), str.end(), [](int c){ return std::isspace(c); });
-  return std::string(front, std::find_if_not(str.rbegin(), std::string::const_reverse_iterator(front),
-      [](int c){ return std::isspace(c); }).base());
+  auto front = std::find_if_not(str.begin(), str.end(),
+                                [](int c) { return std::isspace(c); });
+  return std::string(
+      front,
+      std::find_if_not(str.rbegin(), std::string::const_reverse_iterator(front),
+                       [](int c) { return std::isspace(c); })
+          .base());
 }
 
-} // utils
+}  // namespace utils
 
-} // ycsbc
+}  // namespace ycsbc
 
-#endif // YCSB_C_UTILS_H_
+#endif  // YCSB_C_UTILS_H_

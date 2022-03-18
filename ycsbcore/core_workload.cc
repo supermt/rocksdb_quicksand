@@ -13,6 +13,7 @@
 #include <string>
 
 #include "const_generator.h"
+#include "hotspot_generator.h"
 #include "random_byte_generator.h"
 #include "scrambled_zipfian_generator.h"
 #include "skewed_latest_generator.h"
@@ -89,6 +90,12 @@ const string CoreWorkload::OPERATION_COUNT_PROPERTY = "operationcount";
 
 const std::string CoreWorkload::FIELD_NAME_PREFIX = "fieldnameprefix";
 const std::string CoreWorkload::FIELD_NAME_PREFIX_DEFAULT = "field";
+
+const std::string CoreWorkload::HOTSPOT_HOT_SET = "hot_set";
+const std::string CoreWorkload::HOTSPOT_HOT_SET_DEFAULT = "0.0";
+
+const std::string CoreWorkload::HOTSPOT_HOT_OPT = "hot_opt";
+const std::string CoreWorkload::HOTSPOT_HOT_OPT_DEFAULT = "0.0";
 
 void CoreWorkload::Init(const utils::Properties &p) {
   table_name_ = p.GetProperty(TABLENAME_PROPERTY, TABLENAME_DEFAULT);
@@ -170,6 +177,15 @@ void CoreWorkload::Init(const utils::Properties &p) {
 
   } else if (request_dist == "latest") {
     key_chooser_ = new SkewedLatestGenerator(*transaction_insert_key_sequence_);
+
+  } else if (request_dist == "hotspot") {
+    double hotsetFraction, hotOpnFraction = 0;
+    hotsetFraction =
+        std::stod(p.GetProperty(HOTSPOT_HOT_SET, HOTSPOT_HOT_SET_DEFAULT));
+    hotOpnFraction =
+        std::stod(p.GetProperty(HOTSPOT_HOT_OPT, HOTSPOT_HOT_OPT_DEFAULT));
+    key_chooser_ = new HotSpotGenerator(0, record_count_ - 1, hotsetFraction,
+                                        hotOpnFraction);
 
   } else {
     throw utils::Exception("Unknown request distribution: " + request_dist);

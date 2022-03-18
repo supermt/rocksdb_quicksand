@@ -98,7 +98,7 @@ inline uint64_t ZipfianGenerator::Next(uint64_t num) {
     }
   }
 
-  double u = utils::ThreadLocalRandomDouble();
+    double u = utils::ThreadLocalRandomDouble();
   double uz = u * zeta_n_;
 
   if (uz < 1.0) {

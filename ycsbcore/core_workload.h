@@ -137,7 +137,6 @@ class CoreWorkload {
   ///
   static const std::string SCAN_LENGTH_DISTRIBUTION_PROPERTY;
   static const std::string SCAN_LENGTH_DISTRIBUTION_DEFAULT;
-
   ///
   /// The name of the property for the order to insert records.
   /// Options are "ordered" or "hashed".
@@ -150,6 +149,13 @@ class CoreWorkload {
 
   static const std::string RECORD_COUNT_PROPERTY;
   static const std::string OPERATION_COUNT_PROPERTY;
+
+  static const std::string HOTSPOT_HOT_SET;
+  static const std::string HOTSPOT_HOT_SET_DEFAULT;
+
+  static const std::string HOTSPOT_HOT_OPT;
+  static const std::string HOTSPOT_HOT_OPT_DEFAULT;
+
 
   ///
   /// Field name prefix.
